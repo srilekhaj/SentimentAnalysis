@@ -1,0 +1,25 @@
+python -r venv MLenv
+
+MLenv\Scripts\activate
+
+deactivate
+
+pip install -r requirements.txt
+
+
+main folder azure sentiment analysis
+
+
+part by part testing are in jupyter notebook
+sentiment analysis.ipynb -- only sentiment analysis code
+voice.ipynb -- only voice code
+txtanalytics.ipynb -- only text analysis code
+
+python files
+app_sa == sentiment analysis using text with azure lang text analytics service
+app_speech == sentiment analysis using speech to text service
+overallsst.py == combined the two files app_sa & app_speech
+Everything we can create one single Azure AI service resource(multi-service account) leveraging all services
+
+
+

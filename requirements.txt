@@ -1,0 +1,9 @@
+#numpy
+#torch
+#torchvision
+#notebook
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn

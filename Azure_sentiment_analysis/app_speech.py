@@ -6,7 +6,7 @@ load_env()
 #voice from mic
 #convert into text using speech sdk
 #speech azure openai
-
+ 
 import azure.cognitiveservices.speech as speechsdk
 from openai import AzureOpenAI
 from langchain_openai import AzureChatOpenAI
@@ -20,7 +20,7 @@ OPENAI_API_VERSION = os.getenv("OPENAI_API_VERSION")
 
 # Azure Text Analytics client
 AI_SERVICE_ENDPOINT = os.getenv("AI_SERVICE_ENDPOINT")
-AI_SERVICE_KEY = os.getenv("AI_SERVICE_KEY")  # Replace with your actual key
+AI_SERVICE_KEY = os.getenv("AI_SERVICE_KEY") 
 
 
 def speech_recognition_result():
@@ -128,3 +128,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+

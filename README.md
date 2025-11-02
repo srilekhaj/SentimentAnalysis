@@ -116,6 +116,3 @@ Then open your browser at **[http://localhost:8501](http://localhost:8501)**.
   2. GPT model performs sentiment reasoning on transcribed text.
 
 ---
-
-Would you like me to include a **requirements.txt** file for this project too (with exact pinned versions for deployment)?
-

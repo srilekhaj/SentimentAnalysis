@@ -9,6 +9,8 @@ load_dotenv()
 
 AI_SERVICE_KEY = os.getenv("AI_SERVICE_KEY")
 AI_SERVICE_ENDPOINT = os.getenv("AI_SERVICE_ENDPOINT")
+API_VERSION = os.getenv("API_VERSION")
+DEPLOYMENT_NAME = os.getenv("DEPLOYMENT_NAME")
 credential = AzureKeyCredential(AI_SERVICE_KEY)
 ai_client = TextAnalyticsClient(endpoint=AI_SERVICE_ENDPOINT, credential=credential)
 
@@ -17,7 +19,7 @@ OPENAI_API_ENDPOINT = os.getenv("OPENAI_API_ENDPOINT")
 client = AzureOpenAI(
     azure_endpoint= OPENAI_API_ENDPOINT, 
     api_key=AI_SERVICE_KEY,  
-    api_version="2024-02-01"  # As per documentation
+    api_version="2024-02-01" 
 )
 
 
@@ -26,12 +28,12 @@ def user_input(sentiment,user_question):
     prompt_template = f'Analyze the sentiment of the following text: "{user_input}". Can you provide a brief analysis and explain the reasoning behind the identified sentiment?{sentiment}'
     chain = prompt_template
     llm = AzureChatOpenAI(
-        azure_deployment= "gpt-35-turbo",
-        api_version= "2024-02-01",
+        azure_deployment= DEPLOYMENT_NAME,
+        api_version= API_VERSION,
         api_key=AI_SERVICE_KEY,
         azure_endpoint = AI_SERVICE_ENDPOINT
     )
-    prompt = chain.format(context= sentiment, question= user_question)  #line no 98 #lineno 119
+    prompt = chain.format(context= sentiment, question= user_question)  
     response = llm.invoke(prompt)  #prompttemplate + embedding respone + the user question
     
     return response.content
@@ -65,4 +67,5 @@ if __name__ == "__main__":
     main()
     
 #         st.error("Please enter some text.")
+
 

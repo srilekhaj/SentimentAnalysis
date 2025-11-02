@@ -1,7 +1,8 @@
 import streamlit as st
 import speech_recognition as sr
-
-
+import os
+from dotenv import load_env
+load_env()
 #voice from mic
 #convert into text using speech sdk
 #speech azure openai
@@ -10,16 +11,16 @@ import azure.cognitiveservices.speech as speechsdk
 from openai import AzureOpenAI
 from langchain_openai import AzureChatOpenAI
 
-AZURE_SPEECH_REGION ="eastus"
-AZURE_SPEECH_KEY = "dad9815a11fb41adb8983c5a7f42a145"
+AZURE_SPEECH_REGION = os.getenv("AZURE_SPEECH_REGION")
+AZURE_SPEECH_KEY = os.getenv("AZURE_SPEECH_KEY")
 
-DEPLOYMENT_NAME = "gpt-35-turbo"
-OPENAI_API_VERSION = "2024-02-01"
+DEPLOYMENT_NAME = os.getenv("DEPLOYMENT_NAME")
+OPENAI_API_VERSION = os.getenv("OPENAI_API_VERSION")
 
 
 # Azure Text Analytics client
-AI_SERVICE_ENDPOINT = "https://aiservicesdemo3232.cognitiveservices.azure.com/"
-AI_SERVICE_KEY = "dad9815a11fb41adb8983c5a7f42a145"  # Replace with your actual key
+AI_SERVICE_ENDPOINT = os.getenv("AI_SERVICE_ENDPOINT")
+AI_SERVICE_KEY = os.getenv("AI_SERVICE_KEY")  # Replace with your actual key
 
 
 def speech_recognition_result():
@@ -125,4 +126,5 @@ def main():
     
         
 if __name__ == "__main__":
+
     main()

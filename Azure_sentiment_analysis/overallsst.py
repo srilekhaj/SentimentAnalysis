@@ -12,36 +12,32 @@ from openai import AzureOpenAI
 from langchain_openai import AzureChatOpenAI
 import azure.cognitiveservices.speech as speechsdk
 from openai import AzureOpenAI
-
+from dotenv import load_env
+load_env()
 # Azure Text Analytics client
-AI_SERVICE_ENDPOINT = "https://aiservicesdemo3232.cognitiveservices.azure.com/"
-AI_SERVICE_KEY = "dad9815a11fb41adb8983c5a7f42a145"  # Replace with your actual key
+AI_SERVICE_ENDPOINT = os.getenv("AI_SERVICE_ENDPOINT")
+AI_SERVICE_KEY = os.getenv("AI_SERVICE_KEY")
 credential = AzureKeyCredential(AI_SERVICE_KEY)
 ai_client = TextAnalyticsClient(endpoint=AI_SERVICE_ENDPOINT, credential=credential)
 
-#OPENAI_API_ENDPOINT = "https://aiservicesdemo3232.cognitiveservices.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2024-08-01-preview"  # Replace with your actual OpenAI API key
-OPENAI_API_ENDPOINT = "https://aiservicesdemo3232.openai.azure.com/"
+#OPENAI_API_ENDPOINT
+OPENAI_API_ENDPOINT = os.getenv("OPENAI_API_ENDPOINT")
+AZURE_SPEECH_REGION = os.getenv("AZURE_SPEECH_REGION")
+AZURE_SPEECH_KEY = os.getenv("AZURE_SPEECH_KEY")
 
-
-
-AZURE_SPEECH_REGION ="eastus"
-AZURE_SPEECH_KEY = "dad9815a11fb41adb8983c5a7f42a145"
-
-DEPLOYMENT_NAME = "gpt-35-turbo"
-OPENAI_API_VERSION = "2024-02-01"
+DEPLOYMENT_NAME = os.getenv("DEPLOYMENT_NAME")
+OPENAI_API_VERSION = os.getenv("OPENAI_API_VERSION")
 
 
 # Azure Text Analytics client
-AI_SERVICE_ENDPOINT = "https://aiservicesdemo3232.cognitiveservices.azure.com/"
-AI_SERVICE_KEY = "dad9815a11fb41adb8983c5a7f42a145"  # Replace with your actual key
-
-
+AI_SERVICE_ENDPOINT = os.getenv("AI_SERVICE_ENDPOINT")
+AI_SERVICE_KEY = os.getenv("AI_SERVICE_KEY")
 
 # OpenAI API setup
 client = AzureOpenAI(
     azure_endpoint= OPENAI_API_ENDPOINT, 
     api_key=AI_SERVICE_KEY,  
-    api_version="2024-02-01"  # As per documentation
+    api_version=OPENAI_API_VERSION  # As per documentation
 )
 
 
@@ -51,12 +47,12 @@ def user_input(sentiment,user_question):
     
     chain = prompt_template
     llm = AzureChatOpenAI(
-        azure_deployment= "gpt-35-turbo",
-        api_version= "2024-02-01",
+        azure_deployment= DEPLOYMENT_NAME,
+        api_version= OPENAI_API_VERSION,
         api_key=AI_SERVICE_KEY,
         azure_endpoint = AI_SERVICE_ENDPOINT
     )
-    prompt = chain.format(context= sentiment, question= user_question)  #line no 98 #lineno 119
+    prompt = chain.format(context= sentiment, question= user_question)  
     response = llm.invoke(prompt)  #prompttemplate + embedding respone + the userquestion
     
     return response.content
@@ -207,4 +203,5 @@ def main():
 
  
 if __name__ == "__main__":
+
     main()
